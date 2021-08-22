@@ -4,27 +4,27 @@ Yet another mpv osc script, based on mpv built-in osc. (forked from maoiscat/mpv
 
 ![](https://github.com/maoiscat/mpv-osc-morden/blob/main/preview.png)
 
-# How to install
+## How to install
 
 - put `morden.lua` file into `~/.config/mpv/scripts/` folder and remove other osc scripts.
 
 - remove origin osc in `mpv.conf`
 
-```
-osc=no
-```
+	```
+	osc=no
+	```
 
 - install fonts
 
-It needs [Material-Design-Iconic-Font](https://zavoloklom.github.io/material-design-iconic-font/) to work.
+	It needs [Material-Design-Iconic-Font](https://zavoloklom.github.io/material-design-iconic-font/) to work.
 
-For archlinux user
+	For archlinux user
 
-```bash
-paru -S ttf-material-design-iconic-font
-```
+	```bash
+	paru -S ttf-material-design-iconic-font
+	```
 
-# How to config
+## How to config
 
 Edit osc.conf in `~/.config/mpv/script-opts/`.
 
