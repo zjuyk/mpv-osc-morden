@@ -42,7 +42,7 @@ local user_opts = {
 	showtitle = true,			-- show title and no hide timeout on pause
     timetotal = true,          	-- display total time instead of remaining time?
     visibility = 'auto',        -- only used at init to set visibility_mode(...)
-    windowcontrols = 'auto',    -- whether to show window controls
+    windowcontrols = 'no',      -- whether to show window controls
     language = 'eng',			-- eng=English, chs=Chinese
 }
 
@@ -414,8 +414,10 @@ end
 -- WindowControl helpers
 function window_controls_enabled()
     val = user_opts.windowcontrols
-    if val == 'auto' then
+    if val == 'auto' or val == 'yes' then
         return (not state.border) or state.fullscreen
+    elseif val == 'no' then
+        return false
     else
         return val ~= 'no'
     end

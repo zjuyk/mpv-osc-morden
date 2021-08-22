@@ -2,7 +2,7 @@
 
 Yet another mpv osc script, based on mpv built-in osc. (forked from maoiscat/mpv-osc-morden)
 
-![](https://github.com/maoiscat/mpv-osc-morden/blob/main/preview.png)
+![](https://github.com/zjuyk/mpv-osc-morden/blob/main/preview.png)
 
 ## How to install
 
