@@ -1,6 +1,6 @@
--- by maoiscat
--- email:valarmor@163.com
--- https://github.com/maoiscat/mpv-osc-morden
+-- by zjuyk (inspired by maoiscat)
+-- email: ownbyzjuyk@gmail.com
+-- https://github.com/zjuyk/mpv-osc-morden
 
 local assdraw = require 'mp.assdraw'
 local msg = require 'mp.msg'
@@ -11,7 +11,7 @@ local utils = require 'mp.utils'
 -- Parameters
 --
 -- default user option values
--- may change them in osc.conf
+-- please change them in osc.conf
 local user_opts = {
     showwindowed = true,        -- show OSC when windowed?
     showfullscreen = true,      -- show OSC when fullscreen?
@@ -22,19 +22,23 @@ local user_opts = {
     hidetimeout = 1000,         -- duration in ms until the OSC hides if no
                                 -- mouse movement. enforced non-negative for the
                                 -- user, but internally negative is 'always-on'.
-    fadeduration = 500,         -- duration of fade out in ms, 0 = no fade
+
+    fadeduration = 500,         -- duration of fade out in ms, 0 means no fade
     minmousemove = 3,           -- minimum amount of pixels the mouse has to
                                 -- move between ticks to make the OSC show up
+
     iamaprogrammer = false,     -- use native mpv values and disable OSC
                                 -- internal track list management (and some
                                 -- functions that depend on it)
-	font = 'mpv-osd-symbols',	-- default osc font
+
+	font = 'mpv-osd-symbols',	-- default osc font (will fallback to regular fonts)
     seekbarhandlesize = 1.0,	-- size ratio of the slider handle, range 0 ~ 1
     seekrange = true,			-- show seekrange overlay
     seekrangealpha = 128,      	-- transparency of seekranges
     seekbarkeyframes = true,    -- use keyframes when dragging the seekbar
     title = '${media-title}',   -- string compatible with property-expansion
                                 -- to be shown as OSC title
+
 	showtitle = true,			-- show title and no hide timeout on pause
     timetotal = true,          	-- display total time instead of remaining time?
     visibility = 'auto',        -- only used at init to set visibility_mode(...)
@@ -60,7 +64,7 @@ local language = {
 		nochapter = 'No chapters.',
 	},
 	['chs'] = {
-		welcome = '{\\1c&H00\\bord0\\fs30\\fn微软雅黑 light\\fscx125}MPV{\\fscx100} 播放器',  -- this text appears when mpv starts
+		welcome = '{\\1c&H00\\bord0\\fs30\\fscx125}MPV{\\fscx100} 播放器',  -- this text appears when mpv starts
 		off = '关闭',
 		na = 'n/a',
 		none = '无',
@@ -75,9 +79,11 @@ local language = {
 		nochapter = '无章节信息',
 	}
 }
+
 -- read options from config and command-line
 opt.read_options(user_opts, 'osc', function(list) update_options(list) end)
--- apply lang opts
+
+-- apply language opts
 local texts = language[user_opts.language]
 local osc_param = { -- calculated by osc_init()
     playresy = 0,                           -- canvas size Y
@@ -391,15 +397,6 @@ function set_track(type, next)
     end
 
     mp.commandv('set', type, new_track_mpv)
-
---	if (new_track_osc == 0) then
---        show_message(nicetypes[type] .. ' Track: none')
---    else
---        show_message(nicetypes[type]  .. ' Track: '
---            .. new_track_osc .. '/' .. #tracks_osc[type]
---            .. ' ['.. (tracks_osc[type][new_track_osc].lang or 'unknown') ..'] '
---            .. (tracks_osc[type][new_track_osc].title or ''))
---    end
 end
 
 -- get the currently selected track of <type>, OSC-style counted
@@ -658,7 +655,6 @@ function render_elements(master_ass)
 
             local maxchars = element.layout.button.maxchars
             -- 认为1个中文字符约等于1.5个英文字符
-            -- local charcount = buttontext:len()-  (buttontext:len()-select(2, buttontext:gsub('[^\128-\193]', '')))/1.5
             local charcount = (buttontext:len() + select(2, buttontext:gsub('[^\128-\193]', ''))*2) / 3
             if not (maxchars == nil) and (charcount > maxchars) then
                 local limit = math.max(0, maxchars - 3)
