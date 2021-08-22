@@ -26,5 +26,5 @@ Yet another mpv osc script, based on mpv built-in osc. (forked from maoiscat/mpv
 
 ## How to config
 
-Edit osc.conf in `~/.config/mpv/script-opts/`.
+Edit `~/.config/mpv/script-opts/osc.conf`.
 
