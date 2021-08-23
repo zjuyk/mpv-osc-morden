@@ -1178,9 +1178,9 @@ function osc_init()
 
     ne.content = function ()
         if mp.get_property('pause') == 'yes' then
-            return ('\xEF\x8E\xA7')
-        else
             return ('\xEF\x8E\xAA')
+        else
+            return ('\xEF\x8E\xA7')
         end
     end
     ne.eventresponder['mbtn_left_up'] =
